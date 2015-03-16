@@ -1,12 +1,12 @@
 package test;
 
+import Models.ContactDB;
 import org.junit.Test;
 import play.twirl.api.Content;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.contentAsString;
 import static play.test.Helpers.contentType;
-
 
 /**
  * Simple (JUnit) tests that can call all parts of a play app.
@@ -19,7 +19,7 @@ public class ApplicationTest {
    */
   @Test
   public void renderTemplate() {
-    Content html = views.html.Index.render("Welcome to the home page.");
+    Content html = views.html.Index.render("Digits", ContactDB.getContacts());
     assertThat(contentType(html)).isEqualTo("text/html");
     assertThat(contentAsString(html)).contains("Digits");
   }
