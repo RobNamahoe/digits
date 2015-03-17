@@ -25,9 +25,11 @@ public class Application extends Controller {
    * Handles the getting of the new contact page.
    * @return The New Contact page.
    */
-  public static Result newContact() {
-    Form<ContactFormData> formData = Form.form(ContactFormData.class);
-    return ok(NewContact.render(formData));
+  public static Result newContact(long id) {
+
+    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
+    Form<ContactFormData> formdata = Form.form(ContactFormData.class).fill(data);
+    return ok(NewContact.render(formdata));
   }
 
   /**

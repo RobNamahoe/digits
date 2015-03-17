@@ -1,5 +1,6 @@
 package views.formdata;
 
+import models.Contact;
 import play.data.validation.ValidationError;
 
 import java.util.ArrayList;
@@ -13,10 +14,14 @@ public class ContactFormData {
   private static final int DIGIT_LENGTH = 12;
   private static final int ADDRESS_LENGTH = 24;
 
+  /** The id field of the contact. */
+  public long id = 0;
+
   /** The first name field. */
   public String firstName = "";
 
   /** The last name field. */
+
   public String lastName = "";
 
   /** The telephone number field. */
@@ -25,6 +30,23 @@ public class ContactFormData {
   /** The address text for the contact. */
   public String address = "";
 
+  /**
+   * Default constructor method with no arguments.
+   */
+  public ContactFormData() {
+    // Default Constructor method.
+  }
+
+  /**
+   * Creates an instance of a ContactFormData from the given Contact.
+   * @param contact The contact.
+   */
+  public ContactFormData(Contact contact) {
+    this.id = contact.getId();
+    this.firstName = contact.getFirstName();
+    this.lastName = contact.getLastName();
+    this.address = contact.getAddress();
+  }
 
   /**
    * Ensure appropriate input is entered into the New Contact form.
@@ -32,6 +54,8 @@ public class ContactFormData {
    */
   public List<ValidationError> validate() {
     List<ValidationError> errors = new ArrayList<>();
+
+    System.out.println("Validating");
 
     if (firstName == null || firstName.length() == 0) {
       errors.add(new ValidationError("firstName", "First Name cannot be blank."));
