@@ -32,6 +32,17 @@ public class Application extends Controller {
     return ok(NewContact.render(formData));
   }
 
+
+  /**
+   * Handles the deletion of a contact from the Contacts database.
+   * @param id The ID of the contact to delete.
+   * @return The index page.
+   */
+  public static Result deleteContact(long id) {
+    ContactDB.deleteConteact(id);
+    return ok(Index.render("Digits", ContactDB.getContacts()));
+  }
+
   /**
    * Handles the posting of new contact information.
    * @return The New Contact page with the added information.

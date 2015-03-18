@@ -26,6 +26,15 @@ public class ContactDB {
 
 
   /**
+   * Deletes the contact with the specified ID from the database.
+   * @param id The ID of the contact to delete.
+   */
+  public static void deleteConteact(long id) {
+    contacts.remove(id);
+  }
+
+
+  /**
    * Gets the contact with the specified id.
    * @param id The id of the contact to retrieve.
    * @return The Contact.
