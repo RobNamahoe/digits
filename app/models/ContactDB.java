@@ -24,6 +24,20 @@ public class ContactDB {
     contacts.put(id, new Contact(id, data.firstName, data.lastName, data.telephone, data.telephoneType, data.address));
   }
 
+  /**
+   * Add a contact to the database.
+   * @param firstName The first name.
+   * @param lastName The last name.
+   * @param tel The telephone number.
+   * @param telType The telephone type.
+   * @param address The address.
+   */
+  public static void addContact(String firstName, String lastName, String tel, String telType, String address) {
+    Contact contact = new Contact(0, firstName, lastName, tel, telType, address);
+    ContactFormData data = new ContactFormData(contact);
+    addContact(data);
+  }
+
 
   /**
    * Gets the contact with the specified id.
