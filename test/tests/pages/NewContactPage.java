@@ -37,9 +37,10 @@ public class NewContactPage extends FluentPage {
    * @param firstName The contacts first name.
    * @param lastName The contacts last name.
    * @param telephone The contacts telephone.
+   * @param telephoneType The contacts telephone type.
    * @param address The contacts address.
    */
-  public void addContact(String firstName, String lastName, String telephone, String address) {
+  public void addContact(String firstName, String lastName, String telephone, String telephoneType, String address) {
 
     // Fill the input field with id "firstName" with the passed firstName string.
     fill("#firstName").with(firstName);
@@ -49,6 +50,9 @@ public class NewContactPage extends FluentPage {
 
     // Fill the input field with id "telephone" with the passed telephone string.
     fill("#telephone").with(telephone);
+
+    // Fill the input field with id "telephoneType" with the passed telephoneType string.
+    fill("#telephoneType").with(telephoneType);
 
     // Fill the input field with id "address" with the passed address string.
     fill("#address").with(address);

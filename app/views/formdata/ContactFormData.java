@@ -29,6 +29,9 @@ public class ContactFormData {
   /** The address text for the contact. */
   public String address = "";
 
+  /** The telephone type for the contact. */
+  public String telephoneType = "";
+
   /**
    * Constructs a ContactFormData instance with no args.
    */
@@ -45,6 +48,7 @@ public class ContactFormData {
     this.firstName = contact.getFirstName();
     this.lastName = contact.getLastName();
     this.telephone = contact.getTelephone();
+    this.telephoneType = contact.getTelephoneType();
     this.address = contact.getAddress();
   }
 
@@ -69,6 +73,10 @@ public class ContactFormData {
 
     if (telephone.length() != DIGIT_LENGTH) {
       errors.add(new ValidationError("telephone", "Digits must follow the format xxx-xxx-xxxx."));
+    }
+
+    if (!TelephoneTypes.isType(telephoneType)) {
+      errors.add(new ValidationError("telephoneType", "That is an invalid telephone type."));
     }
 
     if (address == null || address.length() == 0) {
