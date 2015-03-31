@@ -4,6 +4,7 @@ import org.fluentlenium.core.FluentPage;
 import org.openqa.selenium.WebDriver;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fluentlenium.core.filter.FilterConstructor.withId;
 
 /**
  * Provides testing support for the Index page.
@@ -52,7 +53,7 @@ public class NewContactPage extends FluentPage {
     fill("#telephone").with(telephone);
 
     // Fill the input field with id "telephoneType" with the passed telephoneType string.
-    fill("#telephoneType").with(telephoneType);
+    find("select", withId("telephoneType")).find("option", withId(telephoneType)).click();
 
     // Fill the input field with id "address" with the passed address string.
     fill("#address").with(address);
@@ -61,7 +62,5 @@ public class NewContactPage extends FluentPage {
     submit("#submit");
 
   }
-
-
 
 }
