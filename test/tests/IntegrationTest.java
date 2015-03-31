@@ -50,13 +50,14 @@ public class IntegrationTest {
         String firstName = "Robert";
         String lastName = "Namahoe";
         String telephone = "808-111-2222";
+        String telephoneType = "Mobile";
         String address = "1914 University Ave #407, Honolulu HI 90822";
 
-        newContactPage.addContact(firstName, lastName, telephone, address);
+        newContactPage.addContact(firstName, lastName, telephone, telephoneType, address);
 
         browser.goTo(indexPage);
         indexPage.isAt();
-        indexPage.hasContact(firstName, lastName, telephone, address);
+        indexPage.hasContact(firstName, lastName, telephone, telephoneType, address);
 
       }
     });
