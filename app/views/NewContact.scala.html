@@ -24,17 +24,10 @@
                     help = "")
 
                 <!-- Telephone -->
-                @text(contactForm("telephone"),
-                    label = "Digits",
-                    placeholder = "808-111-2222",
-                    help = "")
-
-                <!-- GPA -->
-                @bootstrap3.select(contactForm("telephoneType"),
-                    label = "Telephone Type",
+                @telephone(contactForm("telephone"),
+                    contactForm("telephoneType"),
                     optionMap = telephoneTypeMap,
-                    isMultiple = false,
-                    help = "")
+                    isMultiple = false)
 
 
                 <!-- Address -->
