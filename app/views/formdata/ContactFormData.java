@@ -53,6 +53,23 @@ public class ContactFormData {
     this.address = contact.getAddress();
   }
 
+
+  /**
+   * Creates a ContactFormData instance.
+   * @param firstName The first name.
+   * @param lastName The last name.
+   * @param telephone The telephone.
+   * @param telephoneType The telephone type.
+   * @param address The address.
+   */
+  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType, String address) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.telephone = telephone;
+    this.telephoneType = telephoneType;
+    this.address = address;
+  }
+
   /**
    * Ensure appropriate input is entered into the New Contact form.
    * @return A list of validation errors, if any.
