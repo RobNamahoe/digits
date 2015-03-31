@@ -41,7 +41,7 @@ ics-play-bootstrap provides the following features:
 
   * The [main.css](https://github.com/ics613s15/ics-play-bootstrap/blob/master/public/stylesheets/main.css) adjusts body padding due to the use of the fixed-top navbar.
 
-  * Support for simple [tests](https://github.com/ics613s15/ics-play-bootstrap/blob/master/test/test/IntegrationTest.java).
+  * Support for simple [tests](https://github.com/ics613s15/ics-play-bootstrap/blob/master/test/test/tests.IntegrationTest.java).
 
 ## Screencast
 
