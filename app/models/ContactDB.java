@@ -38,6 +38,7 @@ public class ContactDB {
     return contact;
   }
 
+
   /**
    * Gets a list of the current contacts.
    * @return A list of current contacts.
