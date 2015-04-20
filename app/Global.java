@@ -13,7 +13,7 @@ public class Global extends GlobalSettings {
   public void onStart(Application application) {
     super.onStart(application);
 
-    ContactDB.addContact(new ContactFormData("Rob", "Namahoe", "808-111-1111", "Home",
+    ContactDB.addContact(new ContactFormData("Robert", "Namahoe", "808-111-1111", "Home",
                                              "1914 University Ave, Honolulu"));
 
     ContactDB.addContact(new ContactFormData("Parker", "Haines", "808-111-2222", "Home",
