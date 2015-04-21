@@ -1,4 +1,4 @@
-@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean])
+@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean], dietMap: Map[String, Boolean])
 
     @import helper._
     @import views.html.bootstrap3._
@@ -32,6 +32,12 @@
                     label = "Address",
                     placeholder = "222 Iolani Drive, Honolulu HI 96822",
                     help = "")
+
+                <!-- Diet -->
+                @checkboxes(contactForm("dietTypes"),
+                    label="Diet",
+                    checkboxMap = dietMap)
+
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

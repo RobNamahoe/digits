@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 /**
  * Representation of a contact.
  */
@@ -11,6 +13,7 @@ public class Contact {
   private String telephone;
   private String telephoneType;
   private String address;
+  private List<String> dietTypes;
 
   /**
    * Creates a new contact instance.
@@ -20,14 +23,17 @@ public class Contact {
    * @param telephone The contacts telephone number.
    * @param telephoneType The contacts telephone type.
    * @param address The contacts address.
+   * @param dietTypes The contacts diet type.
    */
-  public Contact(long id, String firstName, String lastName, String telephone, String telephoneType, String address) {
+  public Contact(long id, String firstName, String lastName, String telephone, String telephoneType,
+                 String address, List<String> dietTypes) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.telephoneType = telephoneType;
     this.address = address;
+    this.dietTypes = dietTypes;
   }
 
   /**
@@ -76,6 +82,34 @@ public class Contact {
    */
   public String getAddress() {
     return address;
+  }
+
+
+  /**
+   * Gets the contacts selected diet types.
+   * @return A list of the selected diet types.
+   */
+  public List<String> getDietTypes() {
+    return dietTypes;
+  }
+
+
+  /**
+   * Gets the contacts diet types as a string.
+   * @return A string representing the contacts diet types.
+   */
+  public String getDietTypesAsString() {
+    String dietType = "";
+    for (String type : dietTypes) {
+      dietType += type + ", ";
+    }
+
+    dietType = dietType.trim();
+    if (dietType.length() > 2) {
+      dietType = dietType.substring(0, dietType.length() - 1);
+    }
+    return dietType;
+
   }
 
 

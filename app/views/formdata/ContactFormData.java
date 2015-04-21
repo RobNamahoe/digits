@@ -32,6 +32,8 @@ public class ContactFormData {
   /** The telephone type for the contact. */
   public String telephoneType = "";
 
+  /** The diet types for the contact. */
+  public List<String> dietTypes = new ArrayList<>();
 
   /**
    * Constructs a ContactFormData instance with no args.
@@ -51,6 +53,7 @@ public class ContactFormData {
     this.telephone = contact.getTelephone();
     this.telephoneType = contact.getTelephoneType();
     this.address = contact.getAddress();
+    this.dietTypes = contact.getDietTypes();
   }
 
 
@@ -61,13 +64,16 @@ public class ContactFormData {
    * @param telephone The telephone.
    * @param telephoneType The telephone type.
    * @param address The address.
+   * @param dietTypes The contacts selected diet types.
    */
-  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType, String address) {
+  public ContactFormData(String firstName, String lastName, String telephone,
+                         String telephoneType, String address, List<String> dietTypes) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.telephoneType = telephoneType;
     this.address = address;
+    this.dietTypes = dietTypes;
   }
 
   /**
@@ -103,6 +109,12 @@ public class ContactFormData {
 
     if (address.length() <= ADDRESS_LENGTH) {
       errors.add(new ValidationError("address", "Address must be at least 24 characters long."));
+    }
+
+    for (String dietType : dietTypes) {
+      if (!DietTypes.isType(dietType)) {
+        errors.add(new ValidationError("dietType", "That is an invalid diet type."));
+      }
     }
 
     return errors.isEmpty() ? null : errors;

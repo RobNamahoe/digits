@@ -52,12 +52,13 @@ public class IntegrationTest {
         String telephone = "808-111-2222";
         String telephoneType = "Mobile";
         String address = "1914 University Ave #407, Honolulu HI 90822";
+        String dietType = "Fish";
 
-        newContactPage.addContact(firstName, lastName, telephone, telephoneType, address);
+        newContactPage.addContact(firstName, lastName, telephone, telephoneType, address, dietType);
 
         browser.goTo(indexPage);
         indexPage.isAt();
-        indexPage.hasContact(firstName, lastName, telephone, telephoneType, address);
+        indexPage.hasContact(firstName, lastName, telephone, telephoneType, address, dietType);
 
       }
     });

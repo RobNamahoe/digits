@@ -40,8 +40,10 @@ public class NewContactPage extends FluentPage {
    * @param telephone The contacts telephone.
    * @param telephoneType The contacts telephone type.
    * @param address The contacts address.
+   * @param dietType The contacts diet type.
    */
-  public void addContact(String firstName, String lastName, String telephone, String telephoneType, String address) {
+  public void addContact(String firstName, String lastName, String telephone, String telephoneType,
+                         String address, String dietType) {
 
     // Fill the input field with id "firstName" with the passed firstName string.
     fill("#firstName").with(firstName);
@@ -57,6 +59,9 @@ public class NewContactPage extends FluentPage {
 
     // Fill the input field with id "address" with the passed address string.
     fill("#address").with(address);
+
+    // Find and click on the chosen diet type.
+    find("div", withId("dietTypes")).find("input", withId(dietType)).click();
 
     //Submit the form whose id is "submit"
     submit("#submit");
