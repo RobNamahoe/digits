@@ -15,14 +15,23 @@ public class ContactDB {
   private static long currentId = 1;
   private static Map<Long, Contact> contacts = new HashMap<>();
 
+  private static Map<String, TelephoneType> telephoneTypes = new HashMap<>();
+  private static Map<String, DietType> dietTypes = new HashMap<>();
+
+
   /**
    * Adds a new contact to the database.
    * @param data The form data for the new contact.
    */
   public static void addContact(ContactFormData data) {
     long id = (data.id == 0) ? currentId++ : data.id;
-    contacts.put(id, new Contact(id, data.firstName, data.lastName, data.telephone, data.telephoneType,
-        data.address, data.dietTypes));
+    TelephoneType telephoneType = getTelephoneType(data.telephoneType);
+    List<DietType> dietType = new ArrayList<>();
+    for (String dietString : data.dietTypes) {
+      dietType.add(getDietType(dietString));
+    }
+    contacts.put(id, new Contact(id, data.firstName, data.lastName, data.telephone, telephoneType,
+        data.address, dietType));
   }
 
 
@@ -48,5 +57,46 @@ public class ContactDB {
     return new ArrayList<>(contacts.values());
   }
 
+  /**
+   * Adds a diet type to the map.
+   * @param type The diet type to add.
+   */
+  public static void addDietType(DietType type) {
+    dietTypes.put(type.getDietType(), type);
+  }
+
+  /**
+   * Adds a telephone type to the map.
+   * @param type The telephone type to add.
+   */
+  public static void addTelephoneType(TelephoneType type) {
+    telephoneTypes.put(type.getTelephoneType(), type);
+  }
+
+  /**
+   * Gets the specified diet type instance.
+   * @param type The diet type to retrieve.
+   * @return The diet type.
+   */
+  public static DietType getDietType(String type) {
+    DietType dietType = dietTypes.get(type);
+    if (dietType == null) {
+      throw new RuntimeException("That is an invalid diet type.");
+    }
+    return dietType;
+  }
+
+  /**
+   * Gets the specified telephone type.
+   * @param type The telephone type to retrieve.
+   * @return The telephone type.
+   */
+  public static TelephoneType getTelephoneType(String type) {
+    TelephoneType telephoneType = telephoneTypes.get(type);
+    if (telephoneType == null) {
+      throw new RuntimeException("That is an invalid telephone type.");
+    }
+    return telephoneType;
+  }
 
 }
