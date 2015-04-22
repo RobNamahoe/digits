@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,9 +12,9 @@ public class Contact {
   private String firstName;
   private String lastName;
   private String telephone;
-  private String telephoneType;
+  private TelephoneType telephoneType;
   private String address;
-  private List<String> dietTypes;
+  private List<DietType> dietTypes;
 
   /**
    * Creates a new contact instance.
@@ -25,8 +26,8 @@ public class Contact {
    * @param address The contacts address.
    * @param dietTypes The contacts diet type.
    */
-  public Contact(long id, String firstName, String lastName, String telephone, String telephoneType,
-                 String address, List<String> dietTypes) {
+  public Contact(long id, String firstName, String lastName, String telephone, TelephoneType telephoneType,
+                 String address, List<DietType> dietTypes) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -72,7 +73,7 @@ public class Contact {
    * Gets the contacts telephone type.
    * @return The contacts telephone type.
    */
-  public String getTelephoneType() {
+  public TelephoneType getTelephoneType() {
     return telephoneType;
   }
 
@@ -89,7 +90,7 @@ public class Contact {
    * Gets the contacts selected diet types.
    * @return A list of the selected diet types.
    */
-  public List<String> getDietTypes() {
+  public List<DietType> getDietTypes() {
     return dietTypes;
   }
 
@@ -100,8 +101,8 @@ public class Contact {
    */
   public String getDietTypesAsString() {
     String dietType = "";
-    for (String type : dietTypes) {
-      dietType += type + ", ";
+    for (DietType type : dietTypes) {
+      dietType += type.getDietType() + ", ";
     }
 
     dietType = dietType.trim();
@@ -112,5 +113,73 @@ public class Contact {
 
   }
 
+  /**
+   * Sets the id.
+   * @param id The id.
+   */
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  /**
+   * Sets the first name.
+   * @param firstName The first name.
+   */
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  /**
+   * Sets the last name.
+   * @param lastName The last name.
+   */
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  /**
+   * Sets the telephone.
+   * @param telephone The telephone.
+   */
+  public void setTelephone(String telephone) {
+    this.telephone = telephone;
+  }
+
+  /**
+   * Sets the telephone type.
+   * @param telephoneType The telephone type.
+   */
+  public void setTelephoneType(TelephoneType telephoneType) {
+    this.telephoneType = telephoneType;
+  }
+
+  /**
+   * Sets the address.
+   * @param address The address.
+   */
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  /**
+   * Sets the diet type.
+   * @param dietTypes The diet type.
+   */
+  public void setDietTypes(List<DietType> dietTypes) {
+    this.dietTypes = dietTypes;
+  }
+
+
+  /**
+   * Gets a list of diet types for this contact..
+   * @return The list of diet types.
+   */
+  public List<String> getDietTypesList() {
+    List<String> dietList = new ArrayList<>();
+    for (DietType dietType : this.dietTypes) {
+      dietList.add(dietType.getDietType());
+    }
+    return dietList;
+  }
 
 }

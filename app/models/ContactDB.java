@@ -15,15 +15,69 @@ public class ContactDB {
   private static long currentId = 1;
   private static Map<Long, Contact> contacts = new HashMap<>();
 
+  private static Map<String, TelephoneType> telephoneTypes = new HashMap<>();
+  private static Map<String, DietType> dietTypes = new HashMap<>();
+
   /**
    * Adds a new contact to the database.
    * @param data The form data for the new contact.
    */
   public static void addContact(ContactFormData data) {
     long id = (data.id == 0) ? currentId++ : data.id;
-    contacts.put(id, new Contact(id, data.firstName, data.lastName, data.telephone, data.telephoneType,
-        data.address, data.dietTypes));
+    TelephoneType telephoneType = getTelephoneType(data.telephoneType);
+
+    List<DietType> dietTypes = new ArrayList<>();
+    for (String dietString : data.dietTypes) {
+      dietTypes.add(getDietType(dietString));
+    }
+
+    contacts.put(id, new Contact(id, data.firstName, data.lastName, data.telephone, telephoneType,
+        data.address, dietTypes));
   }
+
+  /**
+   * Adds the telephone type to the list.
+   * @param telephoneType The telephone type.
+   */
+  public static void addTelephoneType(TelephoneType telephoneType) {
+    telephoneTypes.put(telephoneType.getTelephoneType(), telephoneType);
+  }
+
+  /**
+   * Adds the diet type to the list.
+   * @param dietType The diet type.
+   */
+  public static void addDietType(DietType dietType) {
+    dietTypes.put(dietType.getDietType(), dietType);
+  }
+
+  /**
+   * Gets the telephone type.
+   * @param typeString The type.
+   * @return The telephone type.
+   */
+  public static TelephoneType getTelephoneType(String typeString) {
+    TelephoneType telephoneType = telephoneTypes.get(typeString);
+    if (telephoneType == null) {
+      throw new RuntimeException("Illegal telephone type.");
+    }
+    return telephoneType;
+  }
+
+  /**
+   * Gets the diet type.
+   * @param typeString The diet type.
+   * @return The diet type.
+   */
+  public static DietType getDietType(String typeString) {
+    DietType dietType = dietTypes.get(typeString);
+    if (dietType == null) {
+      throw new RuntimeException("Illegal diet type.");
+    }
+    return dietType;
+  }
+
+
 
 
   /**
