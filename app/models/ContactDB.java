@@ -3,27 +3,23 @@ package models;
 import views.formdata.ContactFormData;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A simple in memory repo to store contacts.
  */
 public class ContactDB {
 
-  private static long currentId = 1;
-  private static Map<Long, Contact> contacts = new HashMap<>();
-
-  private static Map<String, TelephoneType> telephoneTypes = new HashMap<>();
-  private static Map<String, DietType> dietTypes = new HashMap<>();
+  //private static long currentId = 1;
+  //private static Map<Long, Contact> contacts = new HashMap<>();
+  //private static Map<String, TelephoneType> telephoneTypes = new HashMap<>();
+  //private static Map<String, DietType> dietTypes = new HashMap<>();
 
   /**
    * Adds a new contact to the database.
    * @param data The form data for the new contact.
    */
   public static void addContact(ContactFormData data) {
-    long id = (data.id == 0) ? currentId++ : data.id;
     TelephoneType telephoneType = getTelephoneType(data.telephoneType);
 
     List<DietType> dietTypes = new ArrayList<>();
@@ -31,8 +27,16 @@ public class ContactDB {
       dietTypes.add(getDietType(dietString));
     }
 
-    contacts.put(id, new Contact(id, data.firstName, data.lastName, data.telephone, telephoneType,
-        data.address, dietTypes));
+    Contact contact =  new Contact(data.firstName, data.lastName, data.telephone, telephoneType,
+        data.address, dietTypes);
+
+    // Make relationships bi-directional
+    telephoneType.addContact(contact);
+    for (DietType dietType : dietTypes) {
+      dietType.addContact(contact);
+    }
+
+    contact.save();
   }
 
   /**
@@ -40,7 +44,8 @@ public class ContactDB {
    * @param telephoneType The telephone type.
    */
   public static void addTelephoneType(TelephoneType telephoneType) {
-    telephoneTypes.put(telephoneType.getTelephoneType(), telephoneType);
+    telephoneType.save();
+    //telephoneTypes.put(telephoneType.getTelephoneType(), telephoneType);
   }
 
   /**
@@ -48,7 +53,8 @@ public class ContactDB {
    * @param dietType The diet type.
    */
   public static void addDietType(DietType dietType) {
-    dietTypes.put(dietType.getDietType(), dietType);
+    dietType.save();
+    //dietTypes.put(dietType.getDietType(), dietType);
   }
 
   /**
@@ -57,7 +63,7 @@ public class ContactDB {
    * @return The telephone type.
    */
   public static TelephoneType getTelephoneType(String typeString) {
-    TelephoneType telephoneType = telephoneTypes.get(typeString);
+    TelephoneType telephoneType = TelephoneType.find().where().eq("telephoneType", typeString).findUnique();
     if (telephoneType == null) {
       throw new RuntimeException("Illegal telephone type.");
     }
@@ -70,15 +76,12 @@ public class ContactDB {
    * @return The diet type.
    */
   public static DietType getDietType(String typeString) {
-    DietType dietType = dietTypes.get(typeString);
+    DietType dietType = DietType.find().where().eq("dietType", typeString).findUnique();
     if (dietType == null) {
       throw new RuntimeException("Illegal diet type.");
     }
     return dietType;
   }
-
-
-
 
   /**
    * Gets the contact with the specified id.
@@ -86,7 +89,7 @@ public class ContactDB {
    * @return The Contact.
    */
   public static Contact getContact(long id) {
-    Contact contact = contacts.get(id);
+    Contact contact = Contact.find().byId(id);
     if (contact == null) {
       throw new RuntimeException("A contact with that id cannot be found.");
     }
@@ -99,7 +102,7 @@ public class ContactDB {
    * @return A list of current contacts.
    */
   public static List<Contact> getContacts() {
-    return new ArrayList<>(contacts.values());
+    return Contact.find().all();
   }
 
 

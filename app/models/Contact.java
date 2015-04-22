@@ -1,24 +1,36 @@
 package models;
 
+import play.db.ebean.Model;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Representation of a contact.
  */
-public class Contact {
+@Entity
+public class Contact extends Model {
 
+  @Id
   private long id;
   private String firstName;
   private String lastName;
-  private String telephone;
-  private TelephoneType telephoneType;
   private String address;
+  private String telephone;
+
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  private TelephoneType telephoneType;
+
+  @ManyToMany(cascade = CascadeType.PERSIST)
   private List<DietType> dietTypes;
 
   /**
    * Creates a new contact instance.
-   * @param id The contacts id.
    * @param firstName The contacts first name.
    * @param lastName The contacts last name.
    * @param telephone The contacts telephone number.
@@ -26,9 +38,8 @@ public class Contact {
    * @param address The contacts address.
    * @param dietTypes The contacts diet type.
    */
-  public Contact(long id, String firstName, String lastName, String telephone, TelephoneType telephoneType,
+  public Contact(String firstName, String lastName, String telephone, TelephoneType telephoneType,
                  String address, List<DietType> dietTypes) {
-    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
@@ -181,5 +192,14 @@ public class Contact {
     }
     return dietList;
   }
+
+  /**
+   * The EBean ORM finder method for database queries.
+   * @return The finder method.
+   */
+  public static Finder<Long, Contact> find() {
+    return new Finder<Long, Contact>(Long.class, Contact.class);
+  }
+
 
 }
